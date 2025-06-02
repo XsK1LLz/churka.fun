@@ -241,28 +241,188 @@
     <script src="./index_files/lenis.min.js.загрузка"></script>
     <script src="./index_files/main.js.загрузка"></script>
     <script>
-        const photos = [
-            "./index_files/1.png",
-            "./index_files/2.png",
-            "./index_files/3.png"
-        ];
-        const sliderImage = document.getElementById("slider-image");
-        let currentIndex = 0;
-
-        function changeImage() {
-            sliderImage.classList.remove("active");
-            setTimeout(() => {
-                currentIndex = (currentIndex + 1) % photos.length;
-                sliderImage.src = photos[currentIndex];
-                setTimeout(() => {
-                    sliderImage.classList.add("active");
-                }, 50); 
-            }, 600); 
+       // Предзагрузка изображений для слайдера
+document.addEventListener('DOMContentLoaded', function() {
+    // Массив с путями к изображениям
+    const photos = [
+        "./churka.fun-main/index_files/1.png",
+        "./churka.fun-main/index_files/2.png", 
+        "./churka.fun-main/index_files/3.png"
+    ];
+    
+    // Предзагрузка всех изображений
+    photos.forEach((src, index) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = function() {
+            console.log(`Изображение ${index + 1} загружено`);
+        };
+        img.onerror = function() {
+            console.error(`Ошибка загрузки изображения ${index + 1}`);
+        };
+    });
+    
+    // Переменные для слайдера
+    let currentIndex = 0;
+    let isAnimating = false;
+    const totalSlides = photos.length;
+    let slideInterval;
+    
+    // Функция для обновления индикаторов
+    function updateProgressBars() {
+        for (let i = 0; i < totalSlides; i++) {
+            const progressBar = document.getElementById(`progress-bar-${i}`);
+            if (i === currentIndex) {
+                progressBar.classList.add('active');\
+            } else {
+                progressBar.classList.remove('active');
+            }
         }
-
-        sliderImage.classList.add("active"); 
-        setInterval(changeImage, 4000); 
-    </script>
+    }
+    
+    // Функция для смены изображения
+    function showSlide(index) {
+        if (isAnimating) return;
+        isAnimating = true;
+        
+        // Скрываем все изображения\
+        for (let i = 0; i < totalSlides; i++) {
+            const slide = document.getElementById(`slider-image-${i}`);
+            slide.classList.remove('active');
+        }
+        
+        // Показываем нужное изображение
+        setTimeout(() => {
+            const slide = document.getElementById(`slider-image-${index}`);
+            slide.classList.add('active');
+            currentIndex = index;
+            updateProgressBars();
+            
+            setTimeout(() => {
+                isAnimating = false;
+            }, 500);
+        }, 500);
+    }
+    
+    // Функция для перехода к следующему слайду
+    function nextSlide() {
+        const nextIndex = (currentIndex + 1) % totalSlides;
+        showSlide(nextIndex);
+    }
+    
+    // Функция для перехода к предыдущему слайду
+    function prevSlide() {
+        const prevIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        showSlide(prevIndex);
+    }
+    
+    // Добавляем обработчики кликов на индикаторы
+    for (let i = 0; i < totalSlides; i++) {
+        const progressBar = document.getElementById(`progress-bar-${i}`);
+        progressBar.addEventListener('click', function() {
+            if (currentIndex !== i && !isAnimating) {
+                showSlide(i);
+            }
+        });
+    }
+    
+    // Функция для запуска автоматической смены слайдов
+    function startSlideshow() {
+        if (slideInterval) clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, 5000);
+    }
+    
+    // Запускаем автоматическую смену слайдов
+    startSlideshow();
+    
+    // Останавливаем автоматическую смену при наведении на слайдер
+    const slider = document.querySelector('.screenshots-slider');
+    slider.addEventListener('mouseenter', function() {
+        clearInterval(slideInterval);
+    });
+    
+    // Возобновляем автоматическую смену при уходе мыши
+    slider.addEventListener('mouseleave', function() {
+        startSlideshow();
+    });
+    
+    // Обработчик для кнопки скролла вниз - теперь разворачивает изображение
+    const scrollDownButton = document.getElementById('scroll-down-button');
+    scrollDownButton.addEventListener('click', function() {
+        const screenshotsSlider = document.querySelector('.screenshots-slider');
+        screenshotsSlider.classList.toggle('fullscreen-mode');
+        
+        if (screenshotsSlider.classList.contains('fullscreen-mode')) {
+            document.body.style.overflow = 'hidden';
+            clearInterval(slideInterval);
+        } else {
+            document.body.style.overflow = '';
+            startSlideshow();
+        }
+    });
+    
+    // Функциональность полноэкранного режима
+    const screenshotsSlider = document.querySelector('.screenshots-slider');
+    const fullscreenClose = document.querySelector('.fullscreen-close');
+    
+    // Переключение в полноэкранный режим при клике на слайдер
+    screenshotsSlider.addEventListener('click', function(e) {
+        if (!e.target.classList.contains('progress-bar')) {
+            screenshotsSlider.classList.toggle('fullscreen-mode');
+            
+            if (screenshotsSlider.classList.contains('fullscreen-mode')) {
+                clearInterval(slideInterval);
+                document.body.style.overflow = 'hidden';
+            } else {
+                startSlideshow();
+                document.body.style.overflow = '';
+            }
+        }
+    });
+    
+    // Закрытие полноэкранного режима
+    fullscreenClose.addEventListener('click', function(e) {
+        e.stopPropagation();
+        screenshotsSlider.classList.remove('fullscreen-mode');
+        startSlideshow();
+        document.body.style.overflow = '';
+    });
+    
+    // Обработка клавиши Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && screenshotsSlider.classList.contains('fullscreen-mode')) {
+            screenshotsSlider.classList.remove('fullscreen-mode');
+            startSlideshow();
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Поддержка свайпов для мобильных устройств
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    screenshotsSlider.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+    
+    screenshotsSlider.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+    
+    function handleSwipe() {
+        const minSwipeDistance = 50;
+        
+        if (touchEndX < touchStartX - minSwipeDistance) {
+            nextSlide();
+        }
+        
+        if (touchEndX > touchStartX + minSwipeDistance) {
+            prevSlide();
+        }
+    }
+});
+</script>
 
     <script>
         // Функция для подсчета дней с открытия
