@@ -12,6 +12,58 @@
 		<!--primary - #5a5aff, secondary - #41418c-->
             --secondary-color: #ff0050 !important;
         }
+        
+        /* Фикс для скролла в зоне видео */
+        .video-container {
+            pointer-events: none;
+        }
+        
+        .video-container iframe {
+            pointer-events: auto;
+        }
+        
+        .video-container:hover iframe {
+            pointer-events: auto;
+        }
+        
+        /* Улучшенные стили для видео */
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            background: rgba(255,255,255,.02);
+            border-radius: 24px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 24px;
+        }
+        
+        /* Overlay для лучшего контроля */
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .video-container:hover .video-overlay {
+            pointer-events: none;
+        }
     </style>
     <link rel="stylesheet" href="./index_files/style.css">
 </head>
@@ -128,8 +180,16 @@
                 <p class="subtitle">Чекни короткий ролик геймплея, где наш клиент рвёт всех на сервере!</p>
             </div>
 
-            <div class="video-container">
-                <iframe src="./index_files/6MJ3Tz_Z7nY.html" title="Демонстрация клиента" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+            <div class="video-container" id="video-container">
+                <div class="video-overlay"></div>
+                <iframe 
+                    src="https://www.youtube.com/embed/6MJ3Tz_Z7nY?enablejsapi=1&origin=https://xsk1llz.github.io" 
+                    title="Демонстрация клиента" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen
+                    loading="lazy">
+                </iframe>
             </div>
 
             <p class="video-caption"></p>
@@ -203,6 +263,7 @@
         sliderImage.classList.add("active"); 
         setInterval(changeImage, 4000); 
     </script>
+
     <script>
         // Функция для подсчета дней с открытия
         function updateDaysSinceOpening() {
@@ -228,5 +289,43 @@
         // Обновляем каждый день в полночь (опционально)
         setInterval(updateDaysSinceOpening, 24 * 60 * 60 * 1000);
     </script>
+
+    <script>
+        // Фикс для скролла в зоне видео
+        document.addEventListener('DOMContentLoaded', function() {
+            const videoContainer = document.getElementById('video-container');
+            const videoOverlay = videoContainer.querySelector('.video-overlay');
+            let isVideoActive = false;
+
+            // Когда пользователь кликает на видео, активируем его
+            videoContainer.addEventListener('click', function() {
+                if (!isVideoActive) {
+                    isVideoActive = true;
+                    videoOverlay.style.pointerEvents = 'none';
+                    videoContainer.style.pointerEvents = 'auto';
+                }
+            });
+
+            // Когда пользователь уходит с видео, деактивируем его
+            videoContainer.addEventListener('mouseleave', function() {
+                setTimeout(() => {
+                    isVideoActive = false;
+                    videoOverlay.style.pointerEvents = 'auto';
+                    videoContainer.style.pointerEvents = 'none';
+                }, 1000); // Задержка в 1 секунду
+            });
+
+            // Предотвращаем скролл при наведении на видео
+            videoContainer.addEventListener('wheel', function(e) {
+                if (!isVideoActive) {
+                    // Разрешаем скролл страницы
+                    return;
+                }
+                // Если видео активно, предотвращаем скролл страницы
+                e.stopPropagation();
+            });
+        });
+    </script>
+
 
 </body></html>
