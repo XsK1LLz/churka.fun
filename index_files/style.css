@@ -147,7 +147,7 @@ footer {
   align-items: center;
   gap: .75rem;
   background: var(--primary-color);
-  color: var(--primary-color);
+  color: #ff;
   padding: 10px 20px;
   border-radius: 28px;
   border: none;
@@ -175,6 +175,8 @@ footer {
 .button-primary:hover {
   transform: translateY(-1px);
   background: var(--secondary-color);
+  background: rgba(255, 255, 255, 0.15);/*pidr*/
+  border-color: rgba(255, 255, 255, 0.2);/*pidr*/
   box-shadow: 0 0 25px color-mix(in srgb, var(--primary-color), transparent 75%);
 }
 .button-primary svg,
