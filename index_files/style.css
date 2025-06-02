@@ -147,7 +147,7 @@ footer {
   align-items: center;
   gap: .75rem;
   background: var(--primary-color);
-  color: #fff;
+  color: currentColor;
   padding: 10px 20px;
   border-radius: 28px;
   border: none;
