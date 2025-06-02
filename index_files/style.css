@@ -230,7 +230,9 @@ footer {
   font-weight: 500;
 }
 .button-secondary:hover {
-  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
 }
 .features-preview {
   width: 100%;
