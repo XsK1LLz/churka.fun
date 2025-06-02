@@ -364,13 +364,23 @@ footer {
   margin: 0;
 }
 .features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 24px;
   max-width: 1200px;
   margin: 0 auto;
-  align-items: stretch;
+}
+
+.features-row {
+  display: flex;
+  gap: 24px;
   justify-content: center;
+  flex-wrap: wrap;
+}
+
+.features-row--first,
+.features-row--second {
+  width: 100%;
 }
 
 .feature-card {
@@ -386,7 +396,7 @@ footer {
   height: 100%;
   width: 100%;
   max-width: 380px;
-  margin: 0 auto; /* Add this line */
+  flex: 1;
 }
 
 .feature-card:hover {
@@ -418,66 +428,6 @@ footer {
   flex-grow: 1;
 }
 
-/* Удалить все старые стили для features-row */
-.features-row {
-  display: contents;
-}
-
-.features-row--first,
-.features-row--second {
-  display: contents;
-}
-
-/* Убрать все margin отступы */
-.features-row--first .feature-card:nth-child(2),
-.features-row--second .feature-card:nth-child(2),
-.features-row--first .feature-card:first-child,
-.features-row--second .feature-card:first-child,
-.features-row--second .feature-card:nth-child(3) {
-  margin: 0;
-}
-.features-row {
-  display: flex;
-  gap: 30px;
-}
-.features-row--first,
-.features-row--second {
-  justify-content: flex-start;
-}
-.features-row--first .feature-card:first-child {
-  margin-left: 0;
-}
-.features-row--second .feature-card:first-child {
-  margin-left: 20px;
-}
-.features-row--second .feature-card:nth-child(3) {
-  margin-top: 30px;
-}
-.feature-card {
-  border-radius: 24px;
-  padding: 20px;
-  width: 100%;
-  max-width: 500px;
-}
-.feature-card:hover {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.08);
-  transform: translateY(-2px);
-}
-.feature-header {
-  margin-bottom: 16px;
-}
-.feature-header h3 {
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.feature-card p {
-  font-size: 16px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.7);
-}
 .demo-section {
   padding: 120px 20px;
   width: 100%;
@@ -795,31 +745,14 @@ footer {
   .why-us-header .subtitle {
     font-size: 14px;
   }
-  .features-grid {
-    grid-template-columns: 1fr;
+  .features-row {
+    flex-direction: column;
     gap: 20px;
   }
-
   .feature-card {
     padding: 20px;
     min-height: 180px;
-  }
-  .features-grid {
-    gap: 20px;
-  }
-  .features-row {
-    flex-direction: column;
-    gap: 16px;
-  }
-  .features-row--first .feature-card,
-  .features-row--second .feature-card {
-    margin-left: 0;
-    margin-top: 0;
     max-width: 100%;
-  }
-  .feature-card,
-  .stat-card {
-    padding: 24px;
   }
   .feature-header h3 {
     font-size: 20px;
