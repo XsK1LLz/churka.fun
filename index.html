@@ -149,7 +149,7 @@
                     <div class="stat-label">Обновлений<br>вышло</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">351</div>
+                    <div class="stat-value" id="days-counter">351</div>
                     <div class="stat-label">Дней<br>с открытия</div>
                 </div>
             </div>
@@ -203,6 +203,30 @@
         sliderImage.classList.add("active"); 
         setInterval(changeImage, 4000); 
     </script>
+    <script>
+        // Функция для подсчета дней с открытия
+        function updateDaysSinceOpening() {
+            const openingDate = new Date('2024-06-16'); // 16 июня 2024
+            const currentDate = new Date();
+            
+            // Вычисляем разность в миллисекундах
+            const timeDifference = currentDate.getTime() - openingDate.getTime();
+            
+            // Конвертируем в дни
+            const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24));
+            
+            // Находим элемент со статистикой дней и обновляем его
+            const daysElement = document.getElementById('days-counter');
+            if (daysElement) {
+                daysElement.textContent = daysDifference;
+            }
+        }
 
+        // Обновляем при загрузке страницы
+        updateDaysSinceOpening();
+
+        // Обновляем каждый день в полночь (опционально)
+        setInterval(updateDaysSinceOpening, 24 * 60 * 60 * 1000);
+    </script>
 
 </body></html>
