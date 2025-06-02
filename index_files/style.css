@@ -168,7 +168,7 @@ footer {
 .button-primary::before {
   content: "";
   position: absolute;
-  inset: 0;/*pidr*/
+  inset: 0;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0, rgba(255, 255, 255, 0) 100%);
   border-radius: inherit;
   pointer-events: none;
