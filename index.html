@@ -66,6 +66,38 @@
         }
         
         /* pidor */
+	/* Улучшенные стили для слайдера
+        .screenshots-slider {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        
+        .screenshots-swaper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding-bottom: 56.25%;
+            background: #111;
+            overflow: hidden;
+        }
+        
+        .screenshots-swaper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .screenshots-swaper img.active {
+            opacity: 1;
+        }*/
+	/* pidor */
         
         .progress-bars {
             display: flex;
@@ -321,8 +353,8 @@
                     
                     setTimeout(() => {
                         isAnimating = false;
-                    }, 1000); // Время анимации появления
-                }, 1000); // Время анимации исчезновения
+                    }, 50); // Время анимации появления
+                }, 600); // Время анимации исчезновения
             }
             
             // Функция для перехода к следующему слайду
@@ -342,7 +374,7 @@
             }
             
             // Запускаем автоматическую смену слайдов
-            const slideInterval = setInterval(nextSlide, 5000);
+            const slideInterval = setInterval(nextSlide, 4000);
             
             // Останавливаем автоматическую смену при наведении на слайдер
             const slider = document.querySelector('.screenshots-slider');
@@ -353,7 +385,7 @@
             // Возобновляем автоматическую смену при уходе мыши
             slider.addEventListener('mouseleave', function() {
                 clearInterval(slideInterval);
-                setInterval(nextSlide, 5000);
+                setInterval(nextSlide, 4000);
             });
         });
     </script>
