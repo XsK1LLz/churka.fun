@@ -64,6 +64,58 @@
         .video-container:hover .video-overlay {
             pointer-events: none;
         }
+        
+        /* Улучшенные стили для слайдера */
+        .screenshots-slider {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        
+        .screenshots-swaper {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 соотношение сторон */
+            background: #111;
+            overflow: hidden;
+        }
+        
+        .screenshots-swaper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .screenshots-swaper img.active {
+            opacity: 1;
+        }
+        
+        .progress-bars {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        .progress-bar {
+            width: 30px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .progress-bar.active {
+            background: var(--primary-color);
+        }
     </style>
     <link rel="stylesheet" href="./index_files/style.css">
 </head>
@@ -106,14 +158,14 @@
             <div class="features-preview">
                 <div class="screenshots-slider">
                     <div class="screenshots-swaper">
-                        <span>
-                            <img id="slider-image" src="./index_files/2.png" alt="screenshot" class="active">
-                        </span>
+                        <img id="slider-image-0" src="./churka.fun-main/index_files/1.png" alt="screenshot 1" class="active">
+                        <img id="slider-image-1" src="./churka.fun-main/index_files/2.png" alt="screenshot 2">
+                        <img id="slider-image-2" src="./churka.fun-main/index_files/3.png" alt="screenshot 3">
                     </div>
                     <div class="progress-bars">
-                        <div class="progress-bar" id="progress-bar-0"></div>
-                        <div class="progress-bar" id="progress-bar-1"></div>
-                        <div class="progress-bar" id="progress-bar-2"></div>
+                        <div class="progress-bar active" id="progress-bar-0" data-index="0"></div>
+                        <div class="progress-bar" id="progress-bar-1" data-index="1"></div>
+                        <div class="progress-bar" id="progress-bar-2" data-index="2"></div>
                     </div>
                 </div>
                 <button class="scroll-down-button">
@@ -233,7 +285,7 @@
                     <li><a href="https://t.me/churkaclient" class="footer-link">Telegram</a></li>
                     <li><a href="https://dsc.gg/selfcode" class="footer-link">Discord</a></li>
                     <li><a href="https://www.youtube.com/@FrizerHvH" class="footer-link">YouTube</a></li>
-                    <li><a href="https://www.youtube.com/watch?v=yo23Ot91O2U" class="footer-link"> </a></li>
+                    <li><a href="https://www.youtube.com/watch?v=yo23Ot91O2U" class="footer-link">Демо видео</a></li>
                 </ul>
             </div>
         </div>
