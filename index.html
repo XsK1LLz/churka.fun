@@ -136,7 +136,7 @@
                         <div class="feature-header">
                             <h3>Мощь и контроль <span class="emoji">💥</span></h3>
                         </div>
-                        <p>Полный арсенал фич, от ауры до флайхака, чтобы разнести любой сервер!</p>
+                        <p>Полный арсенал фич, от килл-ауры до флайхака, чтобы разнести любой сервер!</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-header">
@@ -144,14 +144,14 @@
                         </div>
                         <p>Тюнинг каждой функции под твой стиль игры — всё в твоих руках.</p>
                     </div>
-                </div>
-                <div class="features-row features-row--second">
                     <div class="feature-card">
                         <div class="feature-header">
                             <h3>Стабильность <span class="emoji">🛡️</span></h3>
                         </div>
                         <p>Оптимизировано для полёта даже на старых ПК, без лагов и вылетов.</p>
                     </div>
+                </div>
+                <div class="features-row features-row--second">
                     <div class="feature-card">
                         <div class="feature-header">
                             <h3>Стильный вайб <span class="emoji">😎</span></h3>
@@ -164,7 +164,7 @@
                         </div>
                         <p>Наши профи всегда на связи, чтобы разрулить любой вопрос.</p>
                     </div>
-		    <div class="feature-card">
+                    <div class="feature-card">
                         <div class="feature-header">
                             <h3>Частые апдейты <span class="emoji">🚀</span></h3>
                         </div>
@@ -177,14 +177,14 @@
         <section class="demo-section">
             <div class="demo-header">
                 <h2>Демо нашего клиента 🔥</h2>
-                <p class="subtitle">Чекни короткий ролик геймплея, где наш клиент рвёт всех на сервере!</p>
+                <p class="subtitle">Чекни видео о том, как CHURKA CLIENT запенил РВ!</p>
             </div>
 
             <div class="video-container" id="video-container">
                 <div class="video-overlay"></div>
                 <iframe 
-                    src="https://www.youtube.com/embed/yo23Ot91O2U?enablejsapi=1&origin=https://xsk1llz.github.io" 
-                    title="Демонстрация клиента" 
+                    src="https://www.youtube.com/embed/yo23Ot91O2U?enablejsapi=1&rel=0&modestbranding=1&showinfo=0&fs=1&cc_load_policy=0&iv_load_policy=3&autohide=0&controls=1&t=0" 
+                    title="ЗАПЕНИЛ РВ? НАШЕЛ ЛУЧШИЙ ЧИТ КЛИЕНТ? CHURKA CLIENT" 
                     frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     allowfullscreen
@@ -233,7 +233,7 @@
                     <li><a href="https://t.me/churkaclient" class="footer-link">Telegram</a></li>
                     <li><a href="https://dsc.gg/selfcode" class="footer-link">Discord</a></li>
                     <li><a href="https://www.youtube.com/@FrizerHvH" class="footer-link">YouTube</a></li>
-                    <li><a href="https://www.youtube.com/embed/yo23Ot91O2U" class="footer-link"></a></li>
+                    <li><a href="https://www.youtube.com/watch?v=yo23Ot91O2U" class="footer-link">Демо видео</a></li>
                 </ul>
             </div>
         </div>
@@ -327,5 +327,18 @@
         });
     </script>
 
+<script>
+// Принудительное обновление iframe для избежания кэширования
+document.addEventListener('DOMContentLoaded', function() {
+    const iframe = document.querySelector('.video-container iframe');
+    if (iframe) {
+        const currentSrc = iframe.src;
+        iframe.src = '';
+        setTimeout(() => {
+            iframe.src = currentSrc + '&v=' + Date.now();
+        }, 100);
+    }
+});
+</script>
 
 </body></html>
