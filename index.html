@@ -120,6 +120,8 @@
         }
     </style>
     <link rel="stylesheet" href="./index_files/style.css">
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 </head>
 <body class="loaded">
     <header class="navbar">
@@ -255,7 +257,7 @@
                     <div class="stat-label">Пользователей</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">50 653</div>
+                    <div class="stat-value"><span id="launchCount">0</span></div>
                     <div class="stat-label">Запусков<br>клиента</div>
                 </div>
                 <div class="stat-card">
@@ -466,5 +468,28 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-
-</body></html>
+<script>
+	const firebaseConfig = {
+		apiKey: "AIzaSyCSXyqs7SYVjIkY6dCqTnYS5OGeTYdp0Uc",
+		authDomain: "churka-counter.firebaseapp.com",
+		projectId: "churka-counter",
+		storageBucket: "churka-counter.firebasestorage.app",
+		messagingSenderId: "360425946275",
+		appId: "1:360425946275:web:156f47c172089bec27d316"
+	};
+	firebase.initializeApp(firebaseConfig);
+	const db = firebase.firestore();
+	
+	async function updateLaunchCount() {
+	    try {
+		const snapshot = await db.collection('launches').get();
+		document.getElementById('launchCount').textContent = snapshot.size;
+	    } catch (error) {
+		console.error('Error fetching launch count:', error);
+	    }
+	}
+	updateLaunchCount();
+	setInterval(updateLaunchCount, 5000); // Обновление каждые 5 секунд
+</script>
+</body>
+</html>
